@@ -15,7 +15,7 @@ fun stringToUTF8CodePoints(source: String): IntArray {
 
 object Base65536 {
     fun encode(value: ByteArray): String {
-        val stream = ByteBuffer.allocate(value.size * 2)
+        val stream = ByteBuffer.allocate(if (value.size % 2 == 0) value.size * 2 else (value.size + 1) * 2)
         value.toList().chunked(2).forEach {
             val codePoint: Int
             try {
