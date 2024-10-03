@@ -33,7 +33,7 @@ object Base65536 {
     }
 
     fun decode(value: String): ByteArray {
-        val stream = ByteBuffer.allocate(stringToUTF8CodePoints(value).size * 2)
+        val stream = mutableListOf<Byte>()
         val codepoints = stringToUTF8CodePoints(value)
         var done = false
 
@@ -52,14 +52,14 @@ object Base65536 {
             }
 
             if (b2 == -1) {
-                stream.put(b1.toByte())
+                stream.add(b1.toByte())
                 done = true
             } else {
-                stream.put(b1.toByte())
-                stream.put(b2.toByte())
+                stream.add(b1.toByte())
+                stream.add(b2.toByte())
             }
         }
 
-        return stream.array()
+        return stream.toByteArray()
     }
 }
